@@ -6,8 +6,8 @@ use ElasticFacets\Query\AggregationExpression;
 use ElasticFacets\Result\ParseNumericRangesAggregation;
 
 /**
- * Interface NumericRange
+ * Interface NumericRanges
  *
  * @package ElasticFacets\Aggregation
  */
-interface NumericRange extends AggregationExpression, ParseNumericRangesAggregation {}
+interface NumericRanges extends AggregationExpression, ParseNumericRangesAggregation {}

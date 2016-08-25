@@ -13,7 +13,7 @@ use ElasticFacets\Type\GenericNumericRange;
  *
  * @package ElasticFacets\Aggregation
  */
-final class ArbitraryNumericRange implements NumericRange {
+final class ArbitraryNumericRange implements NumericRanges {
 
 	/**
 	 * @var SingleAggregationField

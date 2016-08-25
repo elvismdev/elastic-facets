@@ -14,7 +14,7 @@ use ElasticFacets\Type\GenericNumericRange;
  *
  * @package ElasticFacets\Aggregation
  */
-final class AbsoluteNumericRange implements NumericRange {
+final class AbsoluteNumericRange implements NumericRanges {
 
 	/**
 	 * @var SingleAggregationField
