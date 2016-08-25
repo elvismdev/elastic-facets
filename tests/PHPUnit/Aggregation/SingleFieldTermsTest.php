@@ -9,7 +9,7 @@ use ElasticFacets\Type\Term;
 use MonkeryTestCase\BrainMonkeyWpTestCase;
 use Mockery;
 
-class TermsTest extends BrainMonkeyWpTestCase {
+class SingleFieldTermsTest extends BrainMonkeyWpTestCase {
 
 	/**
 	 * @see Terms::expression()
@@ -28,7 +28,7 @@ class TermsTest extends BrainMonkeyWpTestCase {
 			]
 		];
 
-		$testee = new Terms( $field_mock );
+		$testee = new SingleFieldTerms( $field_mock );
 
 		$this->assertSame(
 			$expected,
@@ -58,7 +58,7 @@ class TermsTest extends BrainMonkeyWpTestCase {
 			->when( 'is_wp_error' )
 			->justReturn( FALSE );
 
-		$testee     = new Terms( $field_mock );
+		$testee     = new SingleFieldTerms( $field_mock );
 		$collection = $testee->parse_response( $response );
 
 		$this->assertInstanceOf(

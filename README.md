@@ -51,7 +51,7 @@ Implementors of Query and Result interfaces. Builds queries along ES DSL and par
 
  * `AbsoluteNumericRange` aggregates min/max values of a numeric field. (ES Min/Max aggregation)
  * `ArbitraryNumericRange` aggregates a range (count documents within a given range) (ES Range aggregation)
- * `Terms` aggregates terms. (ES Term aggregation)
+ * `SingleFieldTerms` aggregates terms. (ES Term aggregation)
 
 ## Testing
 In order to run the tests you need to install PHPUnit globally on your system or use PhiVE to install it:
