@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+	bootstrap="vendor/autoload.php"
+	backupGlobals="false"
+	colors="true"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	>
+	<testsuites>
+		<testsuite name="Elastic Facets php unit tests">
+			<directory suffix="Test.php">./tests/PHPUnit</directory>
+		</testsuite>
+	</testsuites>
+	<!--
+	Note: This has a high impact on test runner speed. So during
+	initial development this is commented out.
+
+	<filter>
+		<whitelist processUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">./src</directory>
+		</whitelist>
+	</filter>
+	<logging>
+		<log type="coverage-text" target="./tests/coverage.log" showUncoverdFiles="true" />
+	</logging>
+	-->
+</phpunit>

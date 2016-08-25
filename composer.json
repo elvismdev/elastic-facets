@@ -1,0 +1,37 @@
+{
+	"name": "inpsyde/elastic-facets",
+	"description": "Provide an API to Elasticsearch aggregations to build faceted search forms",
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"license": "MIT",
+	"type": "wordpress-plugin",
+	"authors": [
+		{
+			"name": "Inpsyde GmbH",
+			"homepage": "http://inpsyde.com/",
+			"email": "hallo@inpsyde.com",
+			"role": "Company"
+		},
+		{
+			"name": "David Naber",
+			"email": "d.naber@inpsyde.com",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": ">=5.6",
+		"psr/http-message": "^1.0",
+		"guzzlehttp/psr7": "^1.3"
+	},
+	"require-dev": {
+		"inpsyde/monkery-test-case": "^2.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"ElasticFacets\\": "src/"
+		},
+		"files": [
+			"src/functions.php"
+		]
+	}
+}
