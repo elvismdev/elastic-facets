@@ -3,14 +3,14 @@
 namespace ElasticFacets\Aggregation;
 
 use ElasticFacets\ElasticPress\AggregationExpressionCollection;
-use ElasticFacets\Result\ParserCollection;
+use ElasticFacets\Result\AggregationParserCollection;
 use ElasticFacets\Type\AggregatedNumericRangesCollection;
 use ElasticFacets\Type\AggregatedTermsCollection;
 
 final class GenericRegistry implements Registry {
 
 	/**
-	 * @var ParserCollection
+	 * @var AggregationParserCollection
 	 */
 	private $parser_collection;
 
@@ -18,9 +18,7 @@ final class GenericRegistry implements Registry {
 	 * @var AggregationExpressionCollection
 	 */
 	private $expression_collection;
-	
-	
-	
+
 	/**
 	 * @param string $id
 	 * @param object $aggregation (Any aggregation type that implements AggregationExpression AND one of the AggregationParser)

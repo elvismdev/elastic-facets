@@ -3,7 +3,7 @@
 namespace ElasticFacets\ElasticPress;
 
 use ElasticFacets\Result\ParseNumericRangesAggregation;
-use ElasticFacets\Result\ParserCollection;
+use ElasticFacets\Result\AggregationParserCollection;
 use ElasticFacets\Result\ParseTermsAggregation;
 use ElasticFacets\Result\ResultStore;
 use ElasticFacets\Type\AggregatedNumericRangesCollection;
@@ -15,7 +15,7 @@ use InvalidArgumentException;
  *
  * @package ElasticFacets\ElasticPress
  */
-final class ResultStorageParserCollection implements ParserCollection, ResultStore {
+final class ResultStorageParserCollection implements AggregationParserCollection, ResultStore {
 
 	const PARSER_TYPE_TERM          = 'terms';
 	const PARSER_TYPE_NUMERIC_RANGE = 'numeric_ranges';

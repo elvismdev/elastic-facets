@@ -5,11 +5,11 @@ namespace ElasticFacets\Result;
 use InvalidArgumentException;
 
 /**
- * Interface ParserCollection
+ * Interface AggregationParserCollection
  *
  * @package ElasticFacets\Result
  */
-interface ParserCollection {
+interface AggregationParserCollection {
 
 	/**
 	 * @param ParseNumericRangesAggregation|ParseTermsAggregation $parser
