@@ -3,8 +3,6 @@
 namespace ElasticFacets\Aggregation;
 
 use ElasticFacets\AggregationField\SingleAggregationField;
-use ElasticFacets\Query\AggregationExpression;
-use ElasticFacets\Result\ParseNumericRangesAggregation;
 use ElasticFacets\Type\AggregatedNumericRangesCollection;
 use ElasticFacets\Type\GenericAggregatedNumericRangesCollection;
 use ElasticFacets\Type\GenericNumericRange;
@@ -16,7 +14,7 @@ use ElasticFacets\Type\GenericNumericRange;
  *
  * @package ElasticFacets\Aggregation
  */
-final class AbsoluteNumericRange implements AggregationExpression, ParseNumericRangesAggregation {
+final class AbsoluteNumericRange implements NumericRange {
 
 	/**
 	 * @var SingleAggregationField
@@ -79,7 +77,7 @@ final class AbsoluteNumericRange implements AggregationExpression, ParseNumericR
 			isset( $min_response[ 'value' ] ) ? $min_response[ 'value' ] : - INF,
 			isset( $max_response[ 'value' ] ) ? $max_response[ 'value' ] : INF
 		);
-		
+
 		return new GenericAggregatedNumericRangesCollection( [ $range ], [ 0 ] );
 	}
 
