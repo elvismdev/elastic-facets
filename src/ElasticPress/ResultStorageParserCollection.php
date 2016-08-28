@@ -77,7 +77,12 @@ final class ResultStorageParserCollection implements AggregationParserCollection
 	 * @return void
 	 */
 	public function parse_response( array $response ) {
-		
+
+		/* ElasticPress does not match the interface here */
+		$response = [
+			'aggregations' => $response
+		];
+
 		foreach ( $this->parsers as $id => $parser ) {
 			switch ( $this->parser_types[ $id ] ) {
 				case self::PARSER_TYPE_NUMERIC_RANGE :
@@ -100,12 +105,12 @@ final class ResultStorageParserCollection implements AggregationParserCollection
 	 * @return AggregatedTermsCollection
 	 */
 	public function terms_result( $id ) {
-		
+
 		$id = (string) $id;
 		if ( ! isset( $this->aggregated_terms[ $id ] ) ) {
 			throw new InvalidArgumentException( "No aggregation registered for id {$id}" );
 		}
-		
+
 		return $this->aggregated_terms[ $id ];
 	}
 
@@ -117,7 +122,7 @@ final class ResultStorageParserCollection implements AggregationParserCollection
 	 * @return AggregatedNumericRangesCollection
 	 */
 	public function numeric_ranges_result( $id ) {
-		
+
 		$id = (string) $id;
 		if ( ! isset( $this->aggregated_numeric_ranges[ $id ] ) ) {
 			throw new InvalidArgumentException( "No aggregation registered for id {$id}" );

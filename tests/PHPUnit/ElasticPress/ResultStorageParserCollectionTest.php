@@ -17,10 +17,11 @@ class ResultStorageParserCollectionTest extends BrainMonkeyWpTestCase {
 	 */
 	public function test_push_parser_term_parser() {
 
+		// ElasticPress returns the body reduced to the aggregations…
+		$ep_response = [ 'something' ];
+		// but the interface expects the complete body
 		$expected_response = [
-			'aggregations' => [
-				'something'
-			]
+			'aggregations' => $ep_response
 		];
 		$parser_mock       = Mockery::mock( ParseTermsAggregation::class );
 		$parser_mock->shouldReceive( 'parse_response' )
@@ -41,7 +42,7 @@ class ResultStorageParserCollectionTest extends BrainMonkeyWpTestCase {
 
 		$testee = new ResultStorageParserCollection;
 		$testee->push_parser( $parser_mock, 'id' );
-		$testee->parse_response( $expected_response );
+		$testee->parse_response( $ep_response );
 	}
 
 	/**
@@ -49,10 +50,11 @@ class ResultStorageParserCollectionTest extends BrainMonkeyWpTestCase {
 	 */
 	public function test_push_parser_numeric_range_parser() {
 
+		// ElasticPress returns the body reduced to the aggregations…
+		$ep_response = [ 'something' ];
+		// but the interface expects the complete body
 		$expected_response = [
-			'aggregations' => [
-				'something'
-			]
+			'aggregations' => $ep_response
 		];
 		$parser_mock       = Mockery::mock( ParseNumericRangesAggregation::class );
 		$parser_mock->shouldReceive( 'parse_response' )
@@ -73,7 +75,7 @@ class ResultStorageParserCollectionTest extends BrainMonkeyWpTestCase {
 
 		$testee = new ResultStorageParserCollection;
 		$testee->push_parser( $parser_mock, 'id' );
-		$testee->parse_response( $expected_response );
+		$testee->parse_response( $ep_response );
 	}
 
 	/**
@@ -114,20 +116,21 @@ class ResultStorageParserCollectionTest extends BrainMonkeyWpTestCase {
 	public function test_terms_result() {
 
 		$id = 'my_aggregation';
-		$response = [
-			$id => [
-				'some_definition_here'
-			]
+		// ElasticPress returns the body reduced to the aggregations…
+		$ep_response = [ 'something' ];
+		// but the interface expects the complete body
+		$expected_response = [
+			'aggregations' => $ep_response
 		];
 		$result_mock = Mockery::mock( AggregatedTermsCollection::class );
 		$parser_mock = Mockery::mock( ParseTermsAggregation::class );
 		$parser_mock->shouldReceive( 'parse_response' )
-			->with( $response )
+			->with( $expected_response )
 			->andReturn( $result_mock );
 
 		$testee = new ResultStorageParserCollection;
 		$testee->push_parser( $parser_mock, $id );
-		$testee->parse_response( $response );
+		$testee->parse_response( $ep_response );
 
 		$this->assertSame(
 			$result_mock,
@@ -152,20 +155,21 @@ class ResultStorageParserCollectionTest extends BrainMonkeyWpTestCase {
 	public function test_numeric_ranges_result() {
 
 		$id = 'my_aggregation';
-		$response = [
-			$id => [
-				'some_definition_here'
-			]
+		// ElasticPress returns the body reduced to the aggregations…
+		$ep_response = [ 'something' ];
+		// but the interface expects the complete body
+		$expected_response = [
+			'aggregations' => $ep_response
 		];
 		$result_mock = Mockery::mock( AggregatedNumericRangesCollection::class );
 		$parser_mock = Mockery::mock( ParseNumericRangesAggregation::class );
 		$parser_mock->shouldReceive( 'parse_response' )
-			->with( $response )
+			->with( $expected_response )
 			->andReturn( $result_mock );
 
 		$testee = new ResultStorageParserCollection;
 		$testee->push_parser( $parser_mock, $id );
-		$testee->parse_response( $response );
+		$testee->parse_response( $ep_response );
 
 		$this->assertSame(
 			$result_mock,
