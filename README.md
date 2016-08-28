@@ -53,6 +53,8 @@ Implementors of Query and Result interfaces. Builds queries along ES DSL and par
  * `ArbitraryNumericRange` aggregates a range (count documents within a given range) (ES Range aggregation)
  * `SingleFieldTerms` aggregates terms. (ES Term aggregation)
 
+The `Registry` interface is used to provide a central registration point for custom aggregations and retrieve results from.
+
 ## Testing
 In order to run the tests you need to install PHPUnit globally on your system or use PhiVE to install it:
 
@@ -76,11 +78,6 @@ $ humbug
 ```
 It will analyze all files in `src/` and create a report in `tests/humbug.log`.
 
-## Developer notes
-
-ES query args: `EP_API::format_args()`, filter `ep_formatted_args`,  (`ep_search_args` in `EP_API::search()`)
-
-ES response: `EP_API::search()`, filter `ep_retrieve_aggregations`
 
 ## Crafted by Inpsyde
 
