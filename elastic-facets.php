@@ -13,6 +13,7 @@
 
 namespace ElasticFacets;
 
+use ElasticFacets\Plugin\ElasticFacetsLoader;
 use GuzzleHttp\Psr7\ServerRequest;
 
 add_action( 'muplugins_loaded', __NAMESPACE__ . '\init', 1 );
@@ -30,4 +31,9 @@ function init() {
 	}
 
 	$request = ServerRequest::fromGlobals();
+	add_action(
+		'wp_loaded',
+		[ ElasticFacetsLoader::build_with_optional_dependencies( $request ), 'register_callbacks' ],
+		11
+	);
 }
