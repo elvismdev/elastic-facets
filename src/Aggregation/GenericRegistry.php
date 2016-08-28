@@ -76,18 +76,6 @@ final class GenericRegistry implements Registry {
 
 	/**
 	 * @param string $id
-	 * @param array  $config
-	 *
-	 * @throws \InvalidArgumentException
-	 *
-	 * @return bool
-	 */
-	public function build_aggregation( $id, array $config ) {
-		// TODO: Implement build_aggregation() method.
-	}
-
-	/**
-	 * @param string $id
 	 *
 	 * @throws \InvalidArgumentException (If no aggregation is registered for the given ID)
 	 *
