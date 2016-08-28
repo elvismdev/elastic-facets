@@ -40,8 +40,8 @@ class GenericRegistryTest extends BrainMonkeyWpTestCase {
 		$result_store_mock = Mockery::mock( ResultStore::class );
 
 		$testee = new GenericRegistry(
-			$parser_collection_mock,
 			$expression_collection_mock,
+			$parser_collection_mock,
 			$result_store_mock
 		);
 		$this->assertTrue(
@@ -73,8 +73,8 @@ class GenericRegistryTest extends BrainMonkeyWpTestCase {
 		$result_store_mock = Mockery::mock( ResultStore::class );
 
 		$testee = new GenericRegistry(
-			$parser_collection_mock,
 			$expression_collection_mock,
+			$parser_collection_mock,
 			$result_store_mock
 		);
 		$this->assertTrue(
@@ -96,8 +96,8 @@ class GenericRegistryTest extends BrainMonkeyWpTestCase {
 			->andReturn( $terms_collection_mock );
 
 		$testee = new GenericRegistry(
-			Mockery::mock( AggregationParserCollection::class ),
 			Mockery::mock( AggregationExpressionCollection::class ),
+			Mockery::mock( AggregationParserCollection::class ),
 			$result_store_mock
 		);
 
@@ -121,8 +121,8 @@ class GenericRegistryTest extends BrainMonkeyWpTestCase {
 			->andReturn( $numeric_ranges_collection_mock );
 
 		$testee = new GenericRegistry(
-			Mockery::mock( AggregationParserCollection::class ),
 			Mockery::mock( AggregationExpressionCollection::class ),
+			Mockery::mock( AggregationParserCollection::class ),
 			$result_store_mock
 		);
 

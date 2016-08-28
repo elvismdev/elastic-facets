@@ -93,8 +93,8 @@ final class ElasticFacetsLoader implements PluginLoader {
 		$expressions           = new \ElasticFacets\ElasticPress\AggregationExpressionCollection;
 		$result_parser_storage = new ResultStorageParserCollection;
 		$registry = new GenericRegistry(
-			$result_parser_storage,
 			$expressions,
+			$result_parser_storage,
 			$result_parser_storage
 		);
 

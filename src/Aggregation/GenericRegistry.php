@@ -31,18 +31,18 @@ final class GenericRegistry implements Registry {
 	private $results;
 
 	/**
-	 * @param AggregationParserCollection     $parser_collection
 	 * @param AggregationExpressionCollection $expression_collection
+	 * @param AggregationParserCollection     $parser_collection
 	 * @param ResultStore                     $results
 	 */
 	public function __construct(
-		AggregationParserCollection $parser_collection,
 		AggregationExpressionCollection $expression_collection,
+		AggregationParserCollection $parser_collection,
 		ResultStore $results
 	) {
 
-		$this->parser_collection     = $parser_collection;
 		$this->expression_collection = $expression_collection;
+		$this->parser_collection     = $parser_collection;
 		$this->results               = $results;
 	}
 
