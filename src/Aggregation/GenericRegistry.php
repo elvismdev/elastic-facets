@@ -2,7 +2,7 @@
 
 namespace ElasticFacets\Aggregation;
 
-use ElasticFacets\ElasticPress\AggregationExpressionCollection;
+use ElasticFacets\Query\AggregationExpressionCollection;
 use ElasticFacets\Result\AggregationParserCollection;
 use ElasticFacets\Result\ResultStore;
 use ElasticFacets\Type\AggregatedNumericRangesCollection;
