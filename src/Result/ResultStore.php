@@ -18,18 +18,14 @@ interface ResultStore {
 	/**
 	 * @param string $id
 	 *
-	 * @throws InvalidArgumentException if there's no aggregation is registered for this ID
-	 *
-	 * @return AggregatedTermsCollection
+	 * @return AggregatedTermsCollection|null (Returns null if no aggregation was found, which probably means ES service is down)
 	 */
 	public function terms_result( $id );
 
 	/**
 	 * @param string $id
 	 *
-	 * @throws InvalidArgumentException if there's no aggregation is registered for this ID
-	 *
-	 * @return AggregatedNumericRangesCollection
+	 * @return AggregatedNumericRangesCollection|null (Returns null if no aggregation was found, which probably means ES service is down)
 	 */
 	public function numeric_ranges_result( $id );
 }

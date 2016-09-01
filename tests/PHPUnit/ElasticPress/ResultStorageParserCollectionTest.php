@@ -140,13 +140,13 @@ class ResultStorageParserCollectionTest extends BrainMonkeyWpTestCase {
 
 	/**
 	 * @see ResultStorageParserCollection::terms_result()
-	 *
-	 * @expectedException \InvalidArgumentException
 	 */
-	public function test_terms_result_throws_exception() {
+	public function test_terms_result_return_null() {
 
 		$testee = new ResultStorageParserCollection;
-		$testee->terms_result( 'my_aggregation' );
+		$this->assertNull(
+			$testee->terms_result( 'my_aggregation' )
+		);
 	}
 
 	/**
@@ -179,13 +179,13 @@ class ResultStorageParserCollectionTest extends BrainMonkeyWpTestCase {
 
 	/**
 	 * @see ResultStorageParserCollection::numeric_ranges_result()
-	 *
-	 * @expectedException  \InvalidArgumentException
 	 */
-	public function test_numeric_ranges_result_throws_exception() {
+	public function test_numeric_ranges_result_return_null() {
 
 		$testee = new ResultStorageParserCollection;
-		$testee->numeric_ranges_result( 'my_aggregation' );
+		$this->assertNull(
+			$testee->numeric_ranges_result( 'my_aggregation' )
+		);
 	}
 
 }

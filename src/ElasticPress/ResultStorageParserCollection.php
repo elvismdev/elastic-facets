@@ -100,15 +100,13 @@ final class ResultStorageParserCollection implements AggregationParserCollection
 	/**
 	 * @param string $id
 	 *
-	 * @throws InvalidArgumentException if there's no aggregation is registered for this ID
-	 *
-	 * @return AggregatedTermsCollection
+	 * @return AggregatedTermsCollection|null (Returns null if no aggregation was found, which probably means ES service is down)
 	 */
 	public function terms_result( $id ) {
 
 		$id = (string) $id;
 		if ( ! isset( $this->aggregated_terms[ $id ] ) ) {
-			throw new InvalidArgumentException( "No aggregation registered for id {$id}" );
+			return null;
 		}
 
 		return $this->aggregated_terms[ $id ];
@@ -117,15 +115,13 @@ final class ResultStorageParserCollection implements AggregationParserCollection
 	/**
 	 * @param string $id
 	 *
-	 * @throws InvalidArgumentException if there's no aggregation is registered for this ID
-	 *
-	 * @return AggregatedNumericRangesCollection
+	 * @return AggregatedNumericRangesCollection|null (Returns null if no aggregation was found, which probably means ES service is down)
 	 */
 	public function numeric_ranges_result( $id ) {
 
 		$id = (string) $id;
 		if ( ! isset( $this->aggregated_numeric_ranges[ $id ] ) ) {
-			throw new InvalidArgumentException( "No aggregation registered for id {$id}" );
+			return null;
 		}
 
 		return $this->aggregated_numeric_ranges[ $id ];
