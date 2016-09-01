@@ -27,7 +27,7 @@ final class EpTermTaxonomyAggregationField implements SingleAggregationField {
 
 		$taxonomy    = (string) $taxonomy;
 		$this->field = $this->build_field_name( $taxonomy );
-		$this->id    = $id ?: uniqid( "{$taxonomy}_", TRUE );
+		$this->id    = $id ?: str_replace( '.', '_', uniqid( "{$taxonomy}_", TRUE ) );
 	}
 
 	/**

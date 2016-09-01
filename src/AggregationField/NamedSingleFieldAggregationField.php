@@ -26,7 +26,7 @@ final class NamedSingleAggregationField implements SingleAggregationField {
 	public function __construct( $field, $id = '' ) {
 
 		$this->field = (string) $field;
-		$this->id    = $id ?: uniqid( "{$field}_", TRUE );
+		$this->id    = $id ?: str_replace( '.', '_', uniqid( "{$field}_", TRUE ) );
 	}
 
 	/**

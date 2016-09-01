@@ -54,7 +54,7 @@ final class RequestNumericRangeField implements NumericRangeAggregationField {
 		$this->field        = (string) $field;
 		$this->request      = $request;
 		$this->request_name = (string) $request_name;
-		$this->id           = $id ? : uniqid( "{$field}_", TRUE );
+		$this->id           = $id ? : str_replace( '.', '_', uniqid( "{$field}_", TRUE ) );
 		$this->parse_request();
 	}
 
@@ -107,17 +107,17 @@ final class RequestNumericRangeField implements NumericRangeAggregationField {
 		) {
 			return;
 		}
-		
-		$params = array_map( 
+
+		$params = array_map(
 			function( $el ) {
 				if ( '-inf' === strtolower( $el ) ) {
 					return - INF;
 				}
-				
-				return 'inf' === strtolower( $el ) 
-					? INF 
+
+				return 'inf' === strtolower( $el )
+					? INF
 					: (int) $el;
-			}, 
+			},
 			$params[ $this->request_name ]
 		);
 		sort( $params );
