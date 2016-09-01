@@ -4,9 +4,12 @@ namespace ElasticFacets\Aggregation;
 
 use ElasticFacets\Type\AggregatedNumericRangesCollection;
 use ElasticFacets\Type\AggregatedTermsCollection;
+use InvalidArgumentException;
 
 /**
  * Interface Registry
+ *
+ * Registry for various aggregation types with interface to the results of each aggregation.
  *
  * @package ElasticFacets\Aggregation
  */
@@ -18,7 +21,7 @@ interface Registry {
 	 * @param string $id
 	 * @param Terms  $aggregation
 	 *
-	 * @throws \InvalidArgumentException
+	 * @throws InvalidArgumentException
 	 *
 	 * @return bool
 	 */
@@ -37,7 +40,7 @@ interface Registry {
 	/**
 	 * @param string $id
 	 *
-	 * @throws \InvalidArgumentException (If no aggregation is registered for the given ID)
+	 * @throws InvalidArgumentException (If no aggregation is registered for the given ID)
 	 *
 	 * @return AggregatedTermsCollection
 	 */
@@ -46,7 +49,7 @@ interface Registry {
 	/**
 	 * @param string $id
 	 *
-	 * @throws \InvalidArgumentException (If no aggregation is registered for the given ID)
+	 * @throws InvalidArgumentException (If no aggregation is registered for the given ID)
 	 *
 	 * @return AggregatedNumericRangesCollection
 	 */

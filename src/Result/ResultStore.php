@@ -9,6 +9,8 @@ use InvalidArgumentException;
 /**
  * Interface ResultStore
  *
+ * Interface to the results of various aggregations by their IDs
+ *
  * @package ElasticFacets\Result
  */
 interface ResultStore {

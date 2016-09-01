@@ -3,10 +3,9 @@
 namespace ElasticFacets\Query;
 
 /**
- * Class AggregationExpression
+ * Interface AggregationExpression
  *
- * Phrases (express) the aggregation definition of a ES query
- *
+ * Phrases (express) the aggregation definition of a ES query in the ES DSL.
  *
  * @package ElasticFacets\Query
  */

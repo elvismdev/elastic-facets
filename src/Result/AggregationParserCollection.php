@@ -7,6 +7,9 @@ use InvalidArgumentException;
 /**
  * Interface AggregationParserCollection
  *
+ * Kind of a mediator (?) that collects several Parsers and delegates the
+ * central raw ES response to them
+ *
  * @package ElasticFacets\Result
  */
 interface AggregationParserCollection {
@@ -25,7 +28,7 @@ interface AggregationParserCollection {
 	 * @param array $response Contains a key 'aggregations' with all aggregations:
 	 *                        [ "aggregations => [ "aggregation_name" => [ ... ]   ] ]
 	 *
-	 * @return void 
+	 * @return void
 	 */
 	public function parse_response( array $response );
 }

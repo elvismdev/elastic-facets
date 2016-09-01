@@ -8,6 +8,9 @@ use ElasticFacets\Result\ParseTermsAggregation;
 /**
  * Interface Terms
  *
+ * Handle an AggregationExpression and Parser in one instance. One good friend
+ * (for the registry) is better than many.
+ *
  * @package ElasticFacets\Aggregation
  */
 interface Terms extends AggregationExpression, ParseTermsAggregation {}

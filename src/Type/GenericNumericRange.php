@@ -8,8 +8,6 @@ use function ElasticFacets\string_to_number;
 /**
  * Class GenericNumericRange
  *
- * Todo: think about a smarter name
- *
  * @package ElasticFacets\Type
  */
 final class GenericNumericRange implements NumericRange {
