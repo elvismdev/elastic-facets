@@ -20,7 +20,7 @@ add_action( 'muplugins_loaded', __NAMESPACE__ . '\init', 1 );
 
 /**
  * Fetch request globals early
- * 
+ *
  * @wp-hook muplugins_loaded
  */
 function init() {
@@ -32,8 +32,8 @@ function init() {
 
 	$request = ServerRequest::fromGlobals();
 	add_action(
-		'wp_loaded',
+		'parse_query',
 		[ ElasticFacetsLoader::build_with_optional_dependencies( $request ), 'register_callbacks' ],
-		11
+		20
 	);
 }
