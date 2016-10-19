@@ -79,7 +79,7 @@ final class GenericRegistry implements Registry {
 	 *
 	 * @throws \InvalidArgumentException (If no aggregation is registered for the given ID)
 	 *
-	 * @return AggregatedTermsCollection
+	 * @return AggregatedTermsCollection|NULL
 	 */
 	public function get_terms_result( $id ) {
 
@@ -91,7 +91,7 @@ final class GenericRegistry implements Registry {
 	 *
 	 * @throws \InvalidArgumentException (If no aggregation is registered for the given ID)
 	 *
-	 * @return AggregatedNumericRangesCollection
+	 * @return AggregatedNumericRangesCollection|NULL
 	 */
 	public function get_numeric_ranges_result( $id ) {
 
