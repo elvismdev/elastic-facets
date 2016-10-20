@@ -74,7 +74,7 @@ final class SingleFieldTerms implements Terms {
 		$counts    = [ ];
 		foreach ( $aggregation[ 'buckets' ] as $bucket ) {
 			$wp_term = get_term( (int) $bucket[ 'key' ] );
-			if ( is_wp_error( $wp_term ) ) {
+			if ( ! is_a( $wp_term, 'WP_Term' ) ) {
 				// Todo: Error handling
 				continue;
 			}
