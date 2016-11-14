@@ -84,6 +84,8 @@ final class ElasticFacetsLoader implements PluginLoader {
 	}
 
 	/**
+	 * @todo Rename to build_from_request
+	 *
 	 * @param ServerRequestInterface $request
 	 *
 	 * @return ElasticFacetsLoader

@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Elastic Facets
  * Description: Provide an API to Elasticsearch aggregations to build faceted search forms
- * Plugin URI:  TODO
+ * Plugin URI:  https://github.com/inpsyde/elastic-facets/
  * Author:      Inpsyde GmbH
  * Author URI:  http://inpsyde.com/
  * Version:     dev-master
