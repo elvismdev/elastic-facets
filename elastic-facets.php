@@ -6,7 +6,7 @@
  * Plugin URI:  https://github.com/inpsyde/elastic-facets/
  * Author:      Inpsyde GmbH
  * Author URI:  http://inpsyde.com/
- * Version:     dev-master
+ * Version:     1.0.0-alpha1
  * License:     MIT
  * Text Domain: elastic-facets
  */
