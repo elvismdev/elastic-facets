@@ -1,6 +1,8 @@
 # Inpsyde Elastic Facets
 
-Provide an API to Elasticsearch aggregations to build faceted search forms
+**Package under construction. API and architecture is likely to be changed!** Keep an eye on the [CHANGELOG.md](https://github.com/inpsyde/elastic-facets/blob/master/CHANGELOG.md)
+
+Provides an API to Elasticsearch (ES) aggregations to build faceted search forms.
 
 ## Table Of Contents
 
@@ -22,7 +24,7 @@ $ composer require inpsyde/elastic-facets
 
 `// Todo`
 
-## API
+## Domain language
 
 ### AggregationFields
 
@@ -35,15 +37,15 @@ Aggregation fields are kind of _type_ objects that providing field names accordi
 
 ### Types
 
-Type object that provides aggregation results and other data structures. E.g. a `NumericRange` type provides `min()` and `max()` methods. A `Term` is defined by `id()` and `name()`.
+Type object provides aggregation results and other data structures. E.g. a `NumericRange` type provides `min()` and `max()` methods. A `Term` is defined by `id()` and `name()`.
 
 ### Query
 
-Interfaces for objects that build the query following ES DSL for aggregations.
+Objects that build the query following ES DSL for aggregations.
 
 ### Result
 
-Counterpart for `Query`: these interfaces describes objects that are responsible for parsing the ES result into feasible value objects. (E.g. Term collections, numeric ranges)
+Counterpart for `Query`: these objects are responsible for parsing the ES result into feasible value objects. (E.g. Term collections, numeric ranges)
  
 ### Aggregation
  
