@@ -8,7 +8,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-## [1.0.0-alpha1] (02.12.2016)
+## [1.0.0-alpha1 (02.12.2016)]
 
 ### Added
 
@@ -18,4 +18,4 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * CHANGELOG.md
 
 [Unreleased]: https://github.com/inpsyde/elastic-facets/compare/1.0.0-alpha1...master
-[1.0.0-alpha1]: https://github.com/inpsyde/elastic-facets/tree/1.0.0-alpha1
+[1.0.0-alpha1 (02.12.2016)]: https://github.com/inpsyde/elastic-facets/tree/1.0.0-alpha1
