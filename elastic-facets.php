@@ -27,9 +27,8 @@ add_action( 'muplugins_loaded', __NAMESPACE__ . '\init', 1 );
 function init() {
 
 	$autoload = __DIR__ . '/vendor/autoload.php';
-	if ( file_exists( $autoload ) && is_readable( $autoload ) ) {
-		require_once $autoload;
-	}
+	is_readable( $autoload ) and require_once $autoload;
+
 
 	$request = ServerRequest::fromGlobals();
 	add_action(
