@@ -48,11 +48,11 @@ class ElasticFacetsLoaderTest extends BrainMonkeyWpTestCase {
 		$testee->register_callbacks();
 	}
 
-	public function test_build_with_optional_dependencies() {
+	public function test_build_from_request() {
 
 		$request_mock = Mockery::mock( ServerRequestInterface::class );
 
-		$testee = ElasticFacetsLoader::build_with_optional_dependencies( $request_mock );
+		$testee = ElasticFacetsLoader::build_from_request( $request_mock );
 
 		Monkey\WP\Filters::expectAdded( 'ep_formatted_args' )
 			->once()
@@ -95,7 +95,7 @@ class ElasticFacetsLoaderTest extends BrainMonkeyWpTestCase {
 		Monkey\Wp\Filters::expectAdded( 'elastic_facets.get_registry' )
 			->once()
 			->with( Mockery::type( 'closure' ) );
-		
+
 		$testee->register_callbacks();
 	}
 }

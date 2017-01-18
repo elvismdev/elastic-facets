@@ -90,7 +90,7 @@ final class ElasticFacetsLoader implements PluginLoader {
 	 *
 	 * @return ElasticFacetsLoader
 	 */
-	public static function build_with_optional_dependencies( ServerRequestInterface $request ) {
+	public static function build_from_request( ServerRequestInterface $request ) {
 
 		$expressions           = new \ElasticFacets\ElasticPress\AggregationExpressionCollection;
 		$result_parser_storage = new ResultStorageParserCollection;

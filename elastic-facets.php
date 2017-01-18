@@ -38,7 +38,7 @@ function init() {
 			if ( ! $query->is_main_query() || $loaded ) {
 				return;
 			}
-			ElasticFacetsLoader::build_with_optional_dependencies( $request )->register_callbacks();
+			ElasticFacetsLoader::build_from_request( $request )->register_callbacks();
 			$loaded = TRUE;
 		},
 		20
