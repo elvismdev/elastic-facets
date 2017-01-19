@@ -11,7 +11,7 @@ use ElasticFacets\Type\AggregatedTermsCollection;
  *
  * @package ElasticFacets\Result
  */
-interface ParseTermsAggregation extends ParseAggregation {
+interface ParseTermsAggregation {
 
 	/**
 	 * @param array $response Contains a key 'aggregations' with all aggregations:
