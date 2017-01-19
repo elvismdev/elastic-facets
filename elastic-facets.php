@@ -15,7 +15,6 @@ namespace ElasticFacets;
 
 use ElasticFacets\Plugin\ElasticFacetsLoader;
 use GuzzleHttp\Psr7\ServerRequest;
-use WP_Query;
 
 add_action( 'muplugins_loaded', __NAMESPACE__ . '\init', 1 );
 
@@ -29,17 +28,11 @@ function init() {
 	$autoload = __DIR__ . '/vendor/autoload.php';
 	is_readable( $autoload ) and require_once $autoload;
 
-
 	$request = ServerRequest::fromGlobals();
 	add_action(
-		'parse_query',
-		function( WP_Query $query ) use ( $request ) {
-			static $loaded;
-			if ( ! $query->is_main_query() || $loaded ) {
-				return;
-			}
+		'wp_loaded',
+		function() use ( $request ) {
 			ElasticFacetsLoader::build_from_request( $request )->register_callbacks();
-			$loaded = TRUE;
 		},
 		20
 	);

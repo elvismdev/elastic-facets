@@ -29,21 +29,21 @@ class ElasticFacetsLoaderTest extends BrainMonkeyWpTestCase {
 			$registry_mock
 		);
 
+		Monkey\WP\Actions::expectAdded( 'pre_get_posts' )
+			->once()
+			->with( Mockery::type( 'closure' ), 5 );
+
+		Monkey\WP\Filters::expectAdded( 'elastic_facets.get_registry' )
+			->once()
+			->with( Mockery::type( 'closure' ) );
+
 		Monkey\WP\Filters::expectAdded( 'ep_formatted_args' )
 			->once()
-			->with( [ $expression_collection_mock, 'append_to_query'] );
+			->with( Mockery::type( 'closure' ), 10, 2 );
 
 		Monkey\WP\Actions::expectAdded( 'ep_retrieve_aggregations' )
 			->once()
-			->with( [ $parser_collection_mock, 'parse_response' ] );
-
-		Monkey\WP\Actions::expectFired( 'elastic_facets.register_aggregation' )
-			->once()
-			->with( $registry_mock, $request_mock );
-
-		Monkey\Wp\Filters::expectAdded( 'elastic_facets.get_registry' )
-			->once()
-			->with( Mockery::type( 'closure' ) );
+			->with( Mockery::type( 'closure' ), 10, 4 );
 
 		$testee->register_callbacks();
 	}
@@ -54,48 +54,9 @@ class ElasticFacetsLoaderTest extends BrainMonkeyWpTestCase {
 
 		$testee = ElasticFacetsLoader::build_from_request( $request_mock );
 
-		Monkey\WP\Filters::expectAdded( 'ep_formatted_args' )
-			->once()
-			->with( Mockery::on(
-				function( $argument ) {
-					$this->assertInstanceOf(
-						AggregationExpressionCollection::class,
-						$argument[ 0 ]
-					);
-					$this->assertSame(
-						'append_to_query',
-						$argument[ 1 ]
-					);
-
-					return TRUE;
-				}
-			) );
-
-		Monkey\WP\Actions::expectAdded( 'ep_retrieve_aggregations' )
-			->once()
-			->with( Mockery::on(
-				function( $argument ) {
-					$this->assertInstanceOf(
-						AggregationParserCollection::class,
-						$argument[ 0 ]
-					);
-					$this->assertSame(
-						'parse_response',
-						$argument[ 1 ]
-					);
-
-					return TRUE;
-				}
-			) );
-
-		Monkey\WP\Actions::expectFired( 'elastic_facets.register_aggregation' )
-			->once()
-			->with( Mockery::type( Registry::class ), $request_mock );
-
-		Monkey\Wp\Filters::expectAdded( 'elastic_facets.get_registry' )
-			->once()
-			->with( Mockery::type( 'closure' ) );
-
-		$testee->register_callbacks();
+		$this->assertInstanceOf(
+			ElasticFacetsLoader::class,
+			$testee
+		);
 	}
 }
