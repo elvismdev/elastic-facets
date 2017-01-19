@@ -4,10 +4,11 @@ namespace ElasticFacets\Plugin;
 
 use ElasticFacets\Aggregation\GenericRegistry;
 use ElasticFacets\Aggregation\Registry;
+use ElasticFacets\ElasticFacets;
+use ElasticFacets\ElasticFacetsApi;
 use ElasticFacets\ElasticPress\ResultStorageParserCollection;
 use ElasticFacets\Query\AggregationExpressionCollection;
 use ElasticFacets\Result\AggregationParserCollection;
-use ElasticFacets\Result\ParseAggregation;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
@@ -38,6 +39,11 @@ final class ElasticFacetsLoader implements PluginLoader {
 	private $registry;
 
 	/**
+	 * @var ElasticFacetsApi
+	 */
+	private $elastic_facets;
+
+	/**
 	 * @param ServerRequestInterface          $request
 	 * @param AggregationExpressionCollection $expressions
 	 * @param AggregationParserCollection     $parsers
@@ -54,6 +60,13 @@ final class ElasticFacetsLoader implements PluginLoader {
 		$this->expressions = $expressions;
 		$this->parsers     = $parsers;
 		$this->registry    = $registry;
+
+		/* Todo: Refactor constructor signature to inject API directly */
+		$this->elastic_facets = new ElasticFacets(
+			$this->expressions,
+			$this->parsers,
+			$this->parsers
+		);
 	}
 
 	/**
@@ -67,12 +80,12 @@ final class ElasticFacetsLoader implements PluginLoader {
 			'ep_formatted_args',
 			function( $ep_args, $query_args ) {
 
-				if ( ! isset( $query_args[ 'elastic_facets_expressions' ] ) ) {
+				if ( ! isset( $query_args[ 'elastic_facets' ] ) ) {
 					return $ep_args;
 				}
 
-				$expression = $query_args[ 'elastic_facets_expressions' ];
-				$expression instanceof AggregationExpressionCollection and $expression
+				$api = $query_args[ 'elastic_facets' ];
+				$api instanceof ElasticFacetsApi and $ep_args = $api
 					->append_to_query( $ep_args );
 
 				return $ep_args;
@@ -84,12 +97,12 @@ final class ElasticFacetsLoader implements PluginLoader {
 			'ep_retrieve_aggregations',
 			function( $aggregations, $ep_args, $scope, $query_args ) {
 
-				if ( ! isset( $query_args[ 'elastic_facets_parsers' ] ) ) {
+				if ( ! isset( $query_args[ 'elastic_facets' ] ) ) {
 					return;
 				}
 
-				$parser = $query_args[ 'elastic_facets_parsers' ];
-				$parser instanceof ParseAggregation and $parser->parse_response( $aggregations );
+				$api = $query_args[ 'elastic_facets' ];
+				$api instanceof ElasticFacetsApi and $api->parse_response( $aggregations );
 			},
 			10,
 			4
@@ -106,8 +119,7 @@ final class ElasticFacetsLoader implements PluginLoader {
 					return;
 				}
 
-				$wp_query->set( 'elastic_facets_expressions', $this->expressions );
-				$wp_query->set( 'elastic_facets_parsers', $this->parsers );
+				$wp_query->set( 'elastic_facets', $this->elastic_facets );
 
 				/**
 				 * @param Registry               $this ->registry
