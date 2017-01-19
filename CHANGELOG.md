@@ -5,8 +5,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ### Changed
+* Pass ElasticFacet API objects via query arguments to `WP_Query`
+* Don't initialize plugin on `parse_query` but on `wp_loaded`
 
 ### Added
+* Interface `ElasticFacets\ElasticFacetsApi`
+* Implementation of that interface: `ElasticFacets\ElasticFacets`
+
 
 ## [1.0.0-alpha1 (02.12.2016)]
 
