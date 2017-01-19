@@ -7,6 +7,7 @@ use ElasticFacets\Aggregation\Registry;
 use ElasticFacets\ElasticPress\ResultStorageParserCollection;
 use ElasticFacets\Query\AggregationExpressionCollection;
 use ElasticFacets\Result\AggregationParserCollection;
+use ElasticFacets\Result\ParseAggregation;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
@@ -62,6 +63,38 @@ final class ElasticFacetsLoader implements PluginLoader {
 	 */
 	public function register_callbacks() {
 
+		add_filter(
+			'ep_formatted_args',
+			function( $ep_args, $query_args ) {
+
+				if ( ! isset( $query_args[ 'elastic_facets_expressions' ] ) ) {
+					return $ep_args;
+				}
+
+				$expression = $query_args[ 'elastic_facets_expressions' ];
+				$expression instanceof AggregationExpressionCollection and $expression
+					->append_to_query( $ep_args );
+
+				return $ep_args;
+			},
+			10,
+			2
+		);
+		add_action(
+			'ep_retrieve_aggregations',
+			function( $aggregations, $ep_args, $scope, $query_args ) {
+
+				if ( ! isset( $query_args[ 'elastic_facets_parsers' ] ) ) {
+					return;
+				}
+
+				$parser = $query_args[ 'elastic_facets_parsers' ];
+				$parser instanceof ParseAggregation and $parser->parse_response( $aggregations );
+			},
+			10,
+			4
+		);
+
 		/**
 		 * Aggregations for the main query
 		 */
@@ -96,30 +129,6 @@ final class ElasticFacetsLoader implements PluginLoader {
 			}
 		);
 
-		add_filter(
-			'ep_formatted_args',
-			function( $ep_args, $query_args ) {
-
-				//Todo: add type check
-				isset( $query_args[ 'elastic_facets_expressions' ] ) and $ep_args = $query_args[ 'elastic_facets_expressions' ]
-					->append_to_query( $ep_args, $query_args );
-
-				return $ep_args;
-			},
-			10,
-			2
-		);
-		add_action(
-			'ep_retrieve_aggregations',
-			function( $aggregations, $ep_args, $scope, $query_args ) {
-
-				//Todo: add type check
-				isset( $query_args[ 'elastic_facets_parsers' ] ) and $query_args[ 'elastic_facets_parsers' ]
-					->parse_response( $aggregations, $ep_args, $scope, $query_args );
-			},
-			10,
-			4
-		);
 	}
 
 	/**

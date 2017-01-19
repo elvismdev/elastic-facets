@@ -11,7 +11,7 @@ use ElasticFacets\Type\AggregatedNumericRangesCollection;
  *
  * @package ElasticFacets\Result
  */
-interface ParseNumericRangesAggregation {
+interface ParseNumericRangesAggregation extends ParseAggregation {
 
 	/**
 	 * @param array $response Contains a key 'aggregations' with all aggregations:
