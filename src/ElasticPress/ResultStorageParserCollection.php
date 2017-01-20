@@ -8,6 +8,7 @@ use ElasticFacets\Result\ParseTermsAggregation;
 use ElasticFacets\Result\ResultStore;
 use ElasticFacets\Type\AggregatedNumericRangesCollection;
 use ElasticFacets\Type\AggregatedTermsCollection;
+use ElasticFacets\Type\AggregatesCollection;
 use InvalidArgumentException;
 
 /**
@@ -39,6 +40,11 @@ final class ResultStorageParserCollection implements AggregationParserCollection
 	 * @var AggregatedTermsCollection[]
 	 */
 	private $aggregated_terms = [];
+
+	/**
+	 * @var AggregatesCollection[]
+	 */
+	private $aggregates = [];
 
 	/**
 	 * @param ParseNumericRangesAggregation|ParseTermsAggregation $parser
@@ -88,10 +94,12 @@ final class ResultStorageParserCollection implements AggregationParserCollection
 				case self::PARSER_TYPE_NUMERIC_RANGE :
 					/* @var ParseNumericRangesAggregation $parser */
 					$this->aggregated_numeric_ranges[ $id ] = $parser->parse_response( $response );
+					$this->aggregates[ $id ] = $this->aggregated_numeric_ranges[ $id ];
 					break;
 				case self::PARSER_TYPE_TERM :
 					/* @var ParseTermsAggregation $parser */
 					$this->aggregated_terms[ $id ] = $parser->parse_response( $response );
+					$this->aggregates[ $id ] = $this->aggregated_terms[ $id ];
 					break;
 			}
 		}
@@ -125,6 +133,21 @@ final class ResultStorageParserCollection implements AggregationParserCollection
 		}
 
 		return $this->aggregated_numeric_ranges[ $id ];
+	}
+
+	/**
+	 * @param $id
+	 *
+	 * @return AggregatesCollection|null
+	 */
+	public function result( $id ) {
+
+		$id = (string) $id;
+		if ( ! isset( $this->aggregates[ $id ] ) ) {
+			return null;
+		}
+
+		return $this->aggregates[ $id ];
 	}
 
 	/**
