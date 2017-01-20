@@ -7,10 +7,15 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 * Pass ElasticFacet API objects via query arguments to `WP_Query`
 * Don't initialize plugin on `parse_query` but on `wp_loaded`
+* Changed signature of action `elastic_facets.register_aggregation`
+* Changed signature of action `elastic_facets.get_registry`
+
 
 ### Added
-* Interface `ElasticFacets\ElasticFacetsApi`
+* Interface `ElasticFacets\ElasticFacetsApi` as central public API
 * Implementation of that interface: `ElasticFacets\ElasticFacets`
+* Interface `Type\AggregatesCollection`
+* Method `Result\ResultStore::result( $id )` to fetch results generically
 
 
 ## [1.0.0-alpha1 (02.12.2016)]
