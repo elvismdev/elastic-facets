@@ -9,7 +9,7 @@ namespace ElasticFacets\Type;
  *
  * @package ElasticFacets\Result
  */
-interface AggregatedTermsCollection {
+interface AggregatedTermsCollection extends AggregatesCollection {
 
 	/**
 	 * Number of matching documents for the given term

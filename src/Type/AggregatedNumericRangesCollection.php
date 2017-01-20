@@ -7,13 +7,13 @@ namespace ElasticFacets\Type;
  *
  * @package ElasticFacets\Result
  */
-interface AggregatedNumericRangesCollection {
+interface AggregatedNumericRangesCollection extends AggregatesCollection {
 
 	/**
 	 * Number of matching documents
 	 *
 	 * @param NumericRange $range (The range to count documents for)
-	 *                            
+	 *
 	 * @return int (Number of documents for the given range)
 	 */
 	public function count( NumericRange $range );
