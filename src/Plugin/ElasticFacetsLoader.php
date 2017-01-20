@@ -2,13 +2,9 @@
 
 namespace ElasticFacets\Plugin;
 
-use ElasticFacets\Aggregation\GenericRegistry;
-use ElasticFacets\Aggregation\Registry;
 use ElasticFacets\ElasticFacets;
 use ElasticFacets\ElasticFacetsApi;
 use ElasticFacets\ElasticPress\ResultStorageParserCollection;
-use ElasticFacets\Query\AggregationExpressionCollection;
-use ElasticFacets\Result\AggregationParserCollection;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
