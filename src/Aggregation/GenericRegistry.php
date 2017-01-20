@@ -11,6 +11,8 @@ use ElasticFacets\Type\AggregatedTermsCollection;
 /**
  * Class GenericRegistry
  *
+ * Todo: Consider to deprecate this API in favor of ElasticFacetsApi
+ *
  * @package ElasticFacets\Aggregation
  */
 final class GenericRegistry implements Registry {

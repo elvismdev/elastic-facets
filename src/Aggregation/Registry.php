@@ -11,6 +11,8 @@ use InvalidArgumentException;
  *
  * Registry for various aggregation types with interface to the results of each aggregation.
  *
+ * Todo: Consider to deprecate this API in favor of ElasticFacetsApi
+ *
  * @package ElasticFacets\Aggregation
  */
 interface Registry {
