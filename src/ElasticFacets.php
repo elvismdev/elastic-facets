@@ -2,13 +2,15 @@
 
 namespace ElasticFacets;
 
+use ElasticFacets\Aggregation\NumericRanges;
+use ElasticFacets\Aggregation\Terms;
+use ElasticFacets\AggregationField\NumericRangeAggregationField;
 use ElasticFacets\ElasticPress\ResultStorageParserCollection;
-use ElasticFacets\Query\AggregationExpression;
 use ElasticFacets\Query\AggregationExpressionCollection;
 use ElasticFacets\Result\AggregationParserCollection;
 use ElasticFacets\Result\ResultStore;
-use ElasticFacets\Type\AggregatedNumericRangesCollection;
-use ElasticFacets\Type\AggregatedTermsCollection;
+use ElasticFacets\Type\AggregatesCollection;
+use InvalidArgumentException;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
@@ -52,13 +54,19 @@ class ElasticFacets implements ElasticFacetsApi {
 	}
 
 	/**
-	 * @param AggregationExpression $expression
+	 * @param string                $id
+	 * @param Terms|NumericRangeAggregationField $expression
 	 *
-	 * @return ElasticFacets
+	 * @return ElasticFacetsApi
 	 */
-	public function push_expression( AggregationExpression $expression ) {
+	public function add_aggregation( $id, $expression ) {
+
+		if ( ! $expression instanceof Terms && ! $expression instanceof NumericRanges ) {
+			throw new InvalidArgumentException( 'Invalid type for $expression ' . get_class( $expression ) );
+		}
 
 		$this->expressions->push_expression( $expression );
+		$this->parsers->push_parser( $expression, $id );
 
 		return $this;
 	}
@@ -78,31 +86,21 @@ class ElasticFacets implements ElasticFacetsApi {
 	}
 
 	/**
-	 * @param string $id
-	 *
-	 * @return AggregatedTermsCollection|null (Returns null if no aggregation was found, which probably means ES service is down)
-	 */
-	public function terms_result( $id ) {
-
-		return $this->result_store->terms_result( $id );
-	}
-
-	/**
-	 * @param string $id
-	 *
-	 * @return AggregatedNumericRangesCollection|null (Returns null if no aggregation was found, which probably means ES service is down)
-	 */
-	public function numeric_ranges_result( $id ) {
-
-		return $this->result_store->numeric_ranges_result( $id );
-	}
-
-	/**
 	 * @param array $response
 	 */
 	public function parse_response( array $response ) {
 
 		$this->parsers->parse_response( $response );
+	}
+
+	/**
+	 * @param $id
+	 *
+	 * @return AggregatesCollection|null
+	 */
+	public function get_aggregates( $id ) {
+
+		return $this->result_store->result( $id );
 	}
 
 	/**

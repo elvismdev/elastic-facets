@@ -2,8 +2,9 @@
 
 namespace ElasticFacets;
 
-use ElasticFacets\Query\AggregationExpression;
-use ElasticFacets\Result\ResultStore;
+use ElasticFacets\Aggregation\NumericRanges;
+use ElasticFacets\Aggregation\Terms;
+use ElasticFacets\Type\AggregatesCollection;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
@@ -11,14 +12,17 @@ use Psr\Http\Message\ServerRequestInterface;
  *
  * @package ElasticFacets
  */
-interface ElasticFacetsApi extends ResultStore {
+interface ElasticFacetsApi {
 
 	/**
-	 * @param AggregationExpression $expression
+	 * @param string $id
+	 * @param Terms|NumericRanges $expression
+	 *
+	 * @throws \InvalidArgumentException
 	 *
 	 * @return ElasticFacetsApi
 	 */
-	public function push_expression( AggregationExpression $expression );
+	public function add_aggregation( $id, $expression );
 
 	/**
 	 * @param array $query
@@ -31,6 +35,13 @@ interface ElasticFacetsApi extends ResultStore {
 	 * @param array $response
 	 */
 	public function parse_response( array $response );
+
+	/**
+	 * @param $id
+	 *
+	 * @return AggregatesCollection|null
+	 */
+	public function get_aggregates( $id );
 
 	/**
 	 * @return ServerRequestInterface
