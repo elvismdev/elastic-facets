@@ -19,54 +19,16 @@ use Psr\Http\Message\ServerRequestInterface;
 final class ElasticFacetsLoader implements PluginLoader {
 
 	/**
-	 * @var ServerRequestInterface
-	 */
-	private $request;
-
-	/**
-	 * @var AggregationExpressionCollection
-	 */
-	private $expressions;
-
-	/**
-	 * @var ResultStorageParserCollection
-	 */
-	private $parsers;
-
-	/**
-	 * @var GenericRegistry
-	 */
-	private $registry;
-
-	/**
 	 * @var ElasticFacetsApi
 	 */
 	private $elastic_facets;
 
 	/**
-	 * @param ServerRequestInterface          $request
-	 * @param AggregationExpressionCollection $expressions
-	 * @param AggregationParserCollection     $parsers
-	 * @param Registry                        $registry
+	 * @param ElasticFacetsApi $elastic_facets
 	 */
-	public function __construct(
-		ServerRequestInterface $request,
-		AggregationExpressionCollection $expressions,
-		AggregationParserCollection $parsers,
-		Registry $registry
-	) {
+	public function __construct( ElasticFacetsApi $elastic_facets ) {
 
-		$this->request     = $request;
-		$this->expressions = $expressions;
-		$this->parsers     = $parsers;
-		$this->registry    = $registry;
-
-		/* Todo: Refactor constructor signature to inject API directly */
-		$this->elastic_facets = new ElasticFacets(
-			$this->expressions,
-			$this->parsers,
-			$this->parsers
-		);
+		$this->elastic_facets = $elastic_facets;
 	}
 
 	/**
@@ -122,10 +84,18 @@ final class ElasticFacetsLoader implements PluginLoader {
 				$wp_query->set( 'elastic_facets', $this->elastic_facets );
 
 				/**
-				 * @param Registry               $this ->registry
-				 * @param ServerRequestInterface $this ->request
+				 * Use this hook to register aggregations to the main query
+				 *
+				 * @param Registry
+				 * @param ServerRequestInterface
+				 * @param \WP_Query
 				 */
-				do_action( 'elastic_facets.register_aggregation', $this->registry, $this->request, $wp_query );
+				do_action(
+					'elastic_facets.register_aggregation',
+					$this->elastic_facets,
+					ElasticFacets::get_request(),
+					$wp_query
+				);
 			},
 			5
 		);
@@ -137,7 +107,7 @@ final class ElasticFacetsLoader implements PluginLoader {
 			'elastic_facets.get_registry',
 			function () {
 
-				return $this->registry;
+				return $this->elastic_facets;
 			}
 		);
 
@@ -150,14 +120,11 @@ final class ElasticFacetsLoader implements PluginLoader {
 	 */
 	public static function build_from_request( ServerRequestInterface $request ) {
 
+		ElasticFacets::set_request( $request );
 		$expressions           = new \ElasticFacets\ElasticPress\AggregationExpressionCollection;
 		$result_parser_storage = new ResultStorageParserCollection;
-		$registry = new GenericRegistry(
-			$expressions,
-			$result_parser_storage,
-			$result_parser_storage
-		);
+		$elastic_facets        = new ElasticFacets( $expressions, $result_parser_storage, $result_parser_storage );
 
-		return new ElasticFacetsLoader( $request, $expressions, $result_parser_storage, $registry );
+		return new ElasticFacetsLoader( $elastic_facets );
 	}
 }
