@@ -2,9 +2,7 @@
 
 namespace ElasticFacets\Plugin;
 
-use ElasticFacets\Aggregation\Registry;
-use ElasticFacets\Query\AggregationExpressionCollection;
-use ElasticFacets\Result\AggregationParserCollection;
+use ElasticFacets\ElasticFacetsApi;
 use MonkeryTestCase\BrainMonkeyWpTestCase;
 use Mockery;
 use Brain\Monkey;
@@ -17,17 +15,9 @@ class ElasticFacetsLoaderTest extends BrainMonkeyWpTestCase {
 	 */
 	public function test_register_callbacks() {
 
-		$request_mock               = Mockery::mock( ServerRequestInterface::class );
-		$expression_collection_mock = Mockery::mock( AggregationExpressionCollection::class );
-		$parser_collection_mock     = Mockery::mock( AggregationParserCollection::class );
-		$registry_mock              = Mockery::mock( Registry::class );
+		$ef_api_mock = Mockery::mock( ElasticFacetsApi::class );
 
-		$testee = new ElasticFacetsLoader(
-			$request_mock,
-			$expression_collection_mock,
-			$parser_collection_mock,
-			$registry_mock
-		);
+		$testee = new ElasticFacetsLoader( $ef_api_mock );
 
 		Monkey\WP\Actions::expectAdded( 'pre_get_posts' )
 			->once()
