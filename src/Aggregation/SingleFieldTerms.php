@@ -20,11 +20,17 @@ final class SingleFieldTerms implements Terms {
 	private $field;
 
 	/**
+	 * @var int|NULL
+	 */
+	private $size;
+
+	/**
 	 * @param SingleAggregationField $field
 	 */
-	public function __construct( SingleAggregationField $field ) {
+	public function __construct( SingleAggregationField $field, $size = NULL ) {
 
 		$this->field = $field;
+		NULL !== $size and $this->size = (int) $size;
 	}
 
 	/**
@@ -40,11 +46,14 @@ final class SingleFieldTerms implements Terms {
 		/**
 		 * @link https://www.elastic.co/guide/en/elasticsearch/reference/current/search-aggregations-bucket-terms-aggregation.html
 		 */
+		$terms = [
+			"field" => $this->field->field()
+		];
+		NULL !== $this->size and $terms[ 'size' ] = $this->size;
+
 		return [
 			$this->field->id() => [
-				"terms" => [
-					"field" => $this->field->field()
-				]
+				"terms" => $terms
 			]
 		];
 	}

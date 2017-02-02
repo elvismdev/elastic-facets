@@ -37,6 +37,33 @@ class SingleFieldTermsTest extends BrainMonkeyWpTestCase {
 	}
 
 	/**
+	 * @see Terms::expression()
+	 */
+	public function test_expression_with_size_parameter() {
+
+		$field_mock = $this->get_field_mock(
+			'my_aggregation',
+			'terms.category.term_id'
+		);
+		$size = 42;
+		$expected   = [
+			'my_aggregation' => [
+				'terms' => [
+					'field' => 'terms.category.term_id',
+					'size'  => $size,
+				]
+			]
+		];
+
+		$testee = new SingleFieldTerms( $field_mock, $size );
+
+		$this->assertSame(
+			$expected,
+			$testee->expression()
+		);
+	}
+
+	/**
 	 * @see          Terms::parse_response()
 	 * @dataProvider parse_response_test_data
 	 */
